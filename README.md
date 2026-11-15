@@ -1,1 +1,42 @@
-# Memory-Lib\n\nReusable wave-lattice associative memory: correlation recall plus true lattice recall.\n\n## What it does\n\nWaveMemory stores +/-1 patterns as copies for direct correlation recall\nand superposed into an outer-product lattice for Hopfield-style\nsign-update recall. recall_from_lattice() uses only the lattice, so it\nkeeps working after forget_copies() drops the copies.\n\n    from memory_lib import WaveMemory, noise_pattern\n\n    memory = WaveMemory(dim=64)\n    memory.write(pattern)\n    memory.forget_copies()\n    recovered = memory.recall_from_lattice(noisy_cue)\n\n## API\n\n- WaveMemory.write / write_many / recall / recall_from_lattice /\n  forget_copies / cleanup\n- noise_pattern(pattern, flip_prob, rng) - bit flips at a given rate\n- hamming_distance(a, b)\n\n## Honest results and limitations\n\n- Lattice recall is only reliable for a handful of patterns; accuracy\n  decays quickly as the lattice fills (classic Hopfield behaviour).\n- cleanup() judges success by distance from the cue sign, not by whether\n  the true pattern was recovered.\n- Negative result from the source experiments: carrier-mode recall under\n  heavier noise failed about half the time; this lattice design is the\n  safer one but still not robust at high noise.\n\n## Status\n\nPart of the kapildhinwa2010-dev toolkit experiments. CI and CodeQL run on\nevery push to main. License: MIT.\n
+# Memory-Lib
+
+[![CI](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/ci.yml/badge.svg)](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/codeql.yml/badge.svg)](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/codeql.yml)
+
+Reusable wave-lattice associative memory: correlation recall plus true lattice recall.
+
+## What it does
+
+WaveMemory stores +/-1 patterns as copies for direct correlation recall
+and superposed into an outer-product lattice for Hopfield-style
+sign-update recall. recall_from_lattice() uses only the lattice, so it
+keeps working after forget_copies() drops the copies.
+
+    from memory_lib import WaveMemory, noise_pattern
+
+    memory = WaveMemory(dim=64)
+    memory.write(pattern)
+    memory.forget_copies()
+    recovered = memory.recall_from_lattice(noisy_cue)
+
+## API
+
+- WaveMemory.write / write_many / recall / recall_from_lattice /
+  forget_copies / cleanup
+- noise_pattern(pattern, flip_prob, rng) - bit flips at a given rate
+- hamming_distance(a, b)
+
+## Honest results and limitations
+
+- Lattice recall is only reliable for a handful of patterns; accuracy
+  decays quickly as the lattice fills (classic Hopfield behaviour).
+- cleanup() judges success by distance from the cue sign, not by whether
+  the true pattern was recovered.
+- Negative result from the source experiments: carrier-mode recall under
+  heavier noise failed about half the time; this lattice design is the
+  safer one but still not robust at high noise.
+
+## Status
+
+Part of the kapildhinwa2010-dev toolkit experiments. CI and CodeQL run on
+every push to main. License: MIT.
