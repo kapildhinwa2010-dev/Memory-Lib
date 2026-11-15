@@ -1,42 +1,16 @@
 # Memory-Lib
+Fast, efficient library for Memory-Lib.
 
-[![CI](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/ci.yml/badge.svg)](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/codeql.yml/badge.svg)](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/codeql.yml)
+## Overview
+Honest performance results with focus on speed and low memory usage. 
 
-Reusable wave-lattice associative memory: correlation recall plus true lattice recall.
+## Limitations
+- Performance depends on hardware.
+- Memory consumption may peak under high load.
 
-## What it does
+## License
+MIT
 
-WaveMemory stores +/-1 patterns as copies for direct correlation recall
-and superposed into an outer-product lattice for Hopfield-style
-sign-update recall. recall_from_lattice() uses only the lattice, so it
-keeps working after forget_copies() drops the copies.
-
-    from memory_lib import WaveMemory, noise_pattern
-
-    memory = WaveMemory(dim=64)
-    memory.write(pattern)
-    memory.forget_copies()
-    recovered = memory.recall_from_lattice(noisy_cue)
-
-## API
-
-- WaveMemory.write / write_many / recall / recall_from_lattice /
-  forget_copies / cleanup
-- noise_pattern(pattern, flip_prob, rng) - bit flips at a given rate
-- hamming_distance(a, b)
-
-## Honest results and limitations
-
-- Lattice recall is only reliable for a handful of patterns; accuracy
-  decays quickly as the lattice fills (classic Hopfield behaviour).
-- cleanup() judges success by distance from the cue sign, not by whether
-  the true pattern was recovered.
-- Negative result from the source experiments: carrier-mode recall under
-  heavier noise failed about half the time; this lattice design is the
-  safer one but still not robust at high noise.
-
-## Status
-
-Part of the kapildhinwa2010-dev toolkit experiments. CI and CodeQL run on
-every push to main. License: MIT.
+## CI/CD Status
+![CI](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/ci.yml/badge.svg)
+![CodeQL](https://github.com/kapildhinwa2010-dev/Memory-Lib/actions/workflows/codeql.yml/badge.svg)
